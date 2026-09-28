@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Solo el fondo de ventana antes de que Compose dibuje: evita el destello blanco en modo oscuro -->
+    <color name="fondo_ventana">#FBFCFB</color>
+    <style name="Theme.Stryda" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/fondo_ventana</item>
+    </style>
+</resources>

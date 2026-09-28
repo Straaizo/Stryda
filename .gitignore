@@ -1,0 +1,25 @@
+# Gradle / Android Studio
+.gradle/
+build/
+/captures
+.externalNativeBuild/
+.cxx/
+*.iml
+.idea/
+.kotlin/
+
+# Secretos y config local
+local.properties
+google-services.json
+*.jks
+*.keystore
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Programas oficiales del Club Hípico (material de terceros, no se versiona)
+tools/programas/
+
+# APK generados para instalar a mano
+dist/

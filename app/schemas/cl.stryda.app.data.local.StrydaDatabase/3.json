@@ -1,0 +1,695 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "5e8785c1f37aba8e6b0df44023cf8863",
+    "entities": [
+      {
+        "tableName": "corrales",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `nombre` TEXT NOT NULL, `preparador` TEXT NOT NULL, `hipodromo` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preparador",
+            "columnName": "preparador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hipodromo",
+            "columnName": "hipodromo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "caballos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `corral_id` TEXT, `nombre` TEXT NOT NULL, `sexo` TEXT, `edad` INTEGER, `pelaje` TEXT, `padre` TEXT, `madre` TEXT, `estado` TEXT NOT NULL, `foto_url` TEXT, `colores` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "corralId",
+            "columnName": "corral_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sexo",
+            "columnName": "sexo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "edad",
+            "columnName": "edad",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "pelaje",
+            "columnName": "pelaje",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "padre",
+            "columnName": "padre",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "madre",
+            "columnName": "madre",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fotoUrl",
+            "columnName": "foto_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "colores",
+            "columnName": "colores",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_caballos_corral_id",
+            "unique": false,
+            "columnNames": [
+              "corral_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_caballos_corral_id` ON `${TABLE_NAME}` (`corral_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "propietarios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `nombre` TEXT NOT NULL, `email` TEXT, `telefono` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "telefono",
+            "columnName": "telefono",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "caballo_propietario",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`caballo_id` TEXT NOT NULL, `propietario_id` TEXT NOT NULL, `porcentaje` REAL NOT NULL, PRIMARY KEY(`caballo_id`, `propietario_id`))",
+        "fields": [
+          {
+            "fieldPath": "caballoId",
+            "columnName": "caballo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "propietarioId",
+            "columnName": "propietario_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "porcentaje",
+            "columnName": "porcentaje",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "caballo_id",
+            "propietario_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_caballo_propietario_propietario_id",
+            "unique": false,
+            "columnNames": [
+              "propietario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_caballo_propietario_propietario_id` ON `${TABLE_NAME}` (`propietario_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "sesiones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `caballo_id` TEXT NOT NULL, `fecha` INTEGER NOT NULL, `tipo` TEXT NOT NULL, `distancia_m` INTEGER, `tiempo_seg` REAL, `vareador` TEXT, `pista` TEXT, `estado_pista` TEXT, `esfuerzo` INTEGER, `notas` TEXT, `pendiente` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caballoId",
+            "columnName": "caballo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanciaM",
+            "columnName": "distancia_m",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "tiempoSeg",
+            "columnName": "tiempo_seg",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "vareador",
+            "columnName": "vareador",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pista",
+            "columnName": "pista",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "estadoPista",
+            "columnName": "estado_pista",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "esfuerzo",
+            "columnName": "esfuerzo",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "notas",
+            "columnName": "notas",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pendiente",
+            "columnName": "pendiente",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_sesiones_caballo_id",
+            "unique": false,
+            "columnNames": [
+              "caballo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sesiones_caballo_id` ON `${TABLE_NAME}` (`caballo_id`)"
+          },
+          {
+            "name": "index_sesiones_fecha",
+            "unique": false,
+            "columnNames": [
+              "fecha"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sesiones_fecha` ON `${TABLE_NAME}` (`fecha`)"
+          }
+        ]
+      },
+      {
+        "tableName": "mediciones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `caballo_id` TEXT NOT NULL, `fecha` INTEGER NOT NULL, `tipo` TEXT NOT NULL, `valor` REAL NOT NULL, `pendiente` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caballoId",
+            "columnName": "caballo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valor",
+            "columnName": "valor",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pendiente",
+            "columnName": "pendiente",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_mediciones_caballo_id",
+            "unique": false,
+            "columnNames": [
+              "caballo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mediciones_caballo_id` ON `${TABLE_NAME}` (`caballo_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "tratamientos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `caballo_id` TEXT NOT NULL, `fecha` INTEGER NOT NULL, `producto` TEXT NOT NULL, `via` TEXT, `veterinario` TEXT, `dias_retiro` INTEGER NOT NULL, `visibilidad` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caballoId",
+            "columnName": "caballo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "producto",
+            "columnName": "producto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "via",
+            "columnName": "via",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "veterinario",
+            "columnName": "veterinario",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "diasRetiro",
+            "columnName": "dias_retiro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visibilidad",
+            "columnName": "visibilidad",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_tratamientos_caballo_id",
+            "unique": false,
+            "columnNames": [
+              "caballo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tratamientos_caballo_id` ON `${TABLE_NAME}` (`caballo_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "carreras",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `hipodromo` TEXT NOT NULL, `fecha` INTEGER NOT NULL, `hora` TEXT, `numero` INTEGER, `distancia_m` INTEGER NOT NULL, `superficie` TEXT, `condicion_pista` TEXT, `serie` TEXT, `premio` INTEGER, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hipodromo",
+            "columnName": "hipodromo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hora",
+            "columnName": "hora",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "numero",
+            "columnName": "numero",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "distanciaM",
+            "columnName": "distancia_m",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "superficie",
+            "columnName": "superficie",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "condicionPista",
+            "columnName": "condicion_pista",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serie",
+            "columnName": "serie",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "premio",
+            "columnName": "premio",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_carreras_fecha",
+            "unique": false,
+            "columnNames": [
+              "fecha"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_carreras_fecha` ON `${TABLE_NAME}` (`fecha`)"
+          }
+        ]
+      },
+      {
+        "tableName": "participaciones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `carrera_id` TEXT NOT NULL, `caballo_id` TEXT NOT NULL, `numero` INTEGER, `jinete` TEXT, `peso_kg` REAL, `posicion` INTEGER, `tiempo_seg` REAL, `dividendo` REAL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "carreraId",
+            "columnName": "carrera_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caballoId",
+            "columnName": "caballo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numero",
+            "columnName": "numero",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "jinete",
+            "columnName": "jinete",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pesoKg",
+            "columnName": "peso_kg",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "posicion",
+            "columnName": "posicion",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "tiempoSeg",
+            "columnName": "tiempo_seg",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "dividendo",
+            "columnName": "dividendo",
+            "affinity": "REAL"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_participaciones_carrera_id",
+            "unique": false,
+            "columnNames": [
+              "carrera_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_participaciones_carrera_id` ON `${TABLE_NAME}` (`carrera_id`)"
+          },
+          {
+            "name": "index_participaciones_caballo_id",
+            "unique": false,
+            "columnNames": [
+              "caballo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_participaciones_caballo_id` ON `${TABLE_NAME}` (`caballo_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "parciales",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`participacion_id` TEXT NOT NULL, `metros` INTEGER NOT NULL, `tiempo_acum_seg` REAL NOT NULL, `velocidad_ms` REAL NOT NULL, PRIMARY KEY(`participacion_id`, `metros`))",
+        "fields": [
+          {
+            "fieldPath": "participacionId",
+            "columnName": "participacion_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "metros",
+            "columnName": "metros",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tiempoAcumSeg",
+            "columnName": "tiempo_acum_seg",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "velocidadMs",
+            "columnName": "velocidad_ms",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "participacion_id",
+            "metros"
+          ]
+        }
+      },
+      {
+        "tableName": "cambios_caballo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `caballo_id` TEXT NOT NULL, `instante_ms` INTEGER NOT NULL, `campo` TEXT NOT NULL, `valor_anterior` TEXT, `valor_nuevo` TEXT, `nota` TEXT, `pendiente` INTEGER NOT NULL DEFAULT 1, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caballoId",
+            "columnName": "caballo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "instanteMs",
+            "columnName": "instante_ms",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "campo",
+            "columnName": "campo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valorAnterior",
+            "columnName": "valor_anterior",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "valorNuevo",
+            "columnName": "valor_nuevo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "nota",
+            "columnName": "nota",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pendiente",
+            "columnName": "pendiente",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_cambios_caballo_caballo_id",
+            "unique": false,
+            "columnNames": [
+              "caballo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cambios_caballo_caballo_id` ON `${TABLE_NAME}` (`caballo_id`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5e8785c1f37aba8e6b0df44023cf8863')"
+    ]
+  }
+}
